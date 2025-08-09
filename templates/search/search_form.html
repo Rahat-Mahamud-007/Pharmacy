@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}Search Medicine{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h3>Search for Medicine</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('search_medicine') }}">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="search_query" placeholder="Enter medicine name..." required>
+                        <button class="btn btn-primary" type="submit">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block title %}Employee Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Employee Dashboard</h2>
+<p>Welcome, {{ session.user_name }}!</p>
+<div class="list-group">
+    <a href="{{ url_for('employee_medicine_category') }}" class="list-group-item list-group-item-action">Medicine Category</a>
+    <a href="{{ url_for('employee_medicines') }}" class="list-group-item list-group-item-action">Medicines</a>
+    <a href="{{ url_for('employee_medicine_stock') }}" class="list-group-item list-group-item-action">Medicine Stock</a>
+    <a href="{{ url_for('employee_online_orders') }}" class="list-group-item list-group-item-action">Online Orders</a>
+</div>
+{% endblock %}

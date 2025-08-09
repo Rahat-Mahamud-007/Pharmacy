@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Attendance Record{% endblock %}
+
+{% block content %}
+<h2>{{ action }} Attendance Record</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="attendancedate" class="form-label">Date</label>
+                <input type="date" class="form-control" id="attendancedate" name="attendancedate" value="{{ attendance.ATTENDANCEDATE.strftime('%Y-%m-%d') if attendance and attendance.ATTENDANCEDATE else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="employeeid" class="form-label">Employee</label>
+                <select class="form-select" id="employeeid" name="employeeid" required>
+                    <option value="">Select Employee...</option>
+                    {% for emp in employees %}
+                    <option value="{{ emp.EMPLOYEEID }}" {% if attendance and attendance.EMPLOYEEID == emp.EMPLOYEEID %}selected{% endif %}>
+                        {{ emp.EMPLOYEENAME }} (ID: {{ emp.EMPLOYEEID }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="branchid" class="form-label">Branch</label>
+                <select class="form-select" id="branchid" name="branchid" required>
+                    <option value="">Select Branch...</option>
+                    {% for branch in branches %}
+                    <option value="{{ branch.BRANCHID }}" {% if attendance and attendance.BRANCHID == branch.BRANCHID %}selected{% endif %}>
+                        {{ branch.BRANCHNAME }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="shiftid" class="form-label">Shift</label>
+                <select class="form-select" id="shiftid" name="shiftid" required>
+                    <option value="">Select Shift...</option>
+                    {% for shift in shifts %}
+                    <option value="{{ shift.SHIFTID }}" {% if attendance and attendance.SHIFTID == shift.SHIFTID %}selected{% endif %}>
+                        {{ shift.SHIFTNAME }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="timein" class="form-label">Time In</label>
+                <input type="time" class="form-control" id="timein" name="timein" value="{{ attendance.TIMEIN if attendance else '' }}">
+            </div>
+            <div class="mb-3">
+                <label for="timeout" class="form-label">Time Out</label>
+                <input type="time" class="form-control" id="timeout" name="timeout" value="{{ attendance.TIMEOUT if attendance else '' }}">
+            </div>
+            <button type="submit" class="btn btn-success">{{ action }} Record</button>
+            <a href="{{ url_for('admin_attendance') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Branches{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Branches</h2>
+    <a href="{{ url_for('admin_add_branch') }}" class="btn btn-primary">Add New Branch</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Branch Name</th>
+                <th>Location</th>
+                <th>Manager Contact</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for branch in branches %}
+            <tr>
+                <td>{{ branch.BRANCHID }}</td>
+                <td>{{ branch.BRANCHNAME }}</td>
+                <td>{{ branch.LOCATION }}</td>
+                <td>{{ branch.BRANCHMANAGERNUBMBER }}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_branch', branch_id=branch.BRANCHID) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ url_for('admin_delete_branch', branch_id=branch.BRANCHID) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" class="text-center">No branch found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Medicine{% endblock %}
+
+{% block content %}
+<h2>{{ action }} Medicine</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="medicinename" class="form-label">Medicine Name</label>
+                <input type="text" class="form-control" id="medicinename" name="medicinename" value="{{ medicine.MEDICINENAME if medicine else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="categoryid" class="form-label">Category</label>
+                <select class="form-select" id="categoryid" name="categoryid">
+                    <option value="">Select Category...</option>
+                    {% for cat in categories %}
+                    <option value="{{ cat.CATEGORYID }}" {% if medicine and medicine.CATEGORYID == cat.CATEGORYID %}selected{% endif %}>
+                        {{ cat.CATEGORYNAME }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="manufacturer" class="form-label">Manufacturer</label>
+                <input type="text" class="form-control" id="manufacturer" name="manufacturer" value="{{ medicine.MANUFACTURER if medicine else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="price" class="form-label">Price</label>
+                <input type="number" step="0.01" class="form-control" id="price" name="price" value="{{ medicine.PRICE if medicine else '' }}" required>
+            </div>
+            <button type="submit" class="btn btn-success">{{ action }} Medicine</button>
+            <a href="{{ url_for('employee_medicines') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

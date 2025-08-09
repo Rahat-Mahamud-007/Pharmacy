@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Medicine Category{% endblock %}
+
+{% block content %}
+<h2>{{ action }} Medicine Category</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="categoryname" class="form-label">Category Name</label>
+                <input type="text" class="form-control" id="categoryname" name="categoryname" value="{{ category.CATEGORYNAME if category else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="categorydetails" class="form-label">Category Details</label>
+                <textarea class="form-control" id="categorydetails" name="categorydetails" rows="3">{{ category.CATAGORYDETAILS if category else '' }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-success">{{ action }} Category</button>
+            <a href="{{ url_for('employee_medicine_category') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

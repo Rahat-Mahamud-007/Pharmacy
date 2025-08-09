@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ medicine.MEDICINENAME }} Details{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3>{{ medicine.MEDICINENAME }}</h3>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Price: ৳{{ "%.2f"|format(medicine.PRICE) }} per unit</h5>
+        <p><strong>Manufacturer:</strong> {{ medicine.MANUFACTURER }}</p>
+        <p><strong>Category:</strong> {{ medicine.CATEGORYNAME or 'N/A' }}</p>
+        <p><strong>Category Details:</strong> {{ medicine.CATEGORYDETAILS or 'N/A' }}</p>
+        <hr>
+        
+        </div>
+    <div class="card-footer">
+        <a href="{{ url_for('search_medicine') }}" class="btn btn-secondary">Go back to Search</a>
+    </div>
+</div>
+{% endblock %}

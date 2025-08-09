@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Medicine Stock{% endblock %}
+
+{% block content %}
+<h2>{{ action }} Medicine Stock</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="stockid" class="form-label">Stock ID</label>
+                <input type="number" class="form-control" id="stockid" name="stockid" value="{{ stock.STOCKID if stock else '' }}" required {% if action == 'Edit' %}readonly{% endif %}>
+                {% if action == 'Add' %}<div class="form-text">Please enter a unique numeric ID for the stock.</div>{% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="branchid" class="form-label">Branch</label>
+                <select class="form-select" id="branchid" name="branchid" required>
+                    <option value="">Select Branch...</option>
+                    {% for branch in branches %}
+                    <option value="{{ branch.BRANCHID }}" {% if stock and stock.BRANCHID == branch.BRANCHID %}selected{% endif %}>
+                        {{ branch.BRANCHNAME }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="medicineid" class="form-label">Medicine</label>
+                <select class="form-select" id="medicineid" name="medicineid" required>
+                    <option value="">Select Medicine...</option>
+                    {% for med in medicines %}
+                    <option value="{{ med.MEDICINEID }}" {% if stock and stock.MEDICINEID == med.MEDICINEID %}selected{% endif %}>
+                        {{ med.MEDICINENAME }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="quantity" class="form-label">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="quantity" value="{{ stock.QUANTITY if stock else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="expirydate" class="form-label">Expiry Date</label>
+                <input type="date" class="form-control" id="expirydate" name="expirydate" value="{{ stock.EXPIRYDATE.strftime('%Y-%m-%d') if stock and stock.EXPIRYDATE else '' }}" required>
+            </div>
+            <button type="submit" class="btn btn-success">{{ action }} Stock</button>
+            <a href="{{ url_for('employee_medicine_stock') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

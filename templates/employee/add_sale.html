@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Sale{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Create a New Sale</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+
+            <!-- Select Customer -->
+            <div class="mb-3">
+                <label for="customerid" class="form-label">Customer</label>
+                <select class="form-select" id="customerid" name="customerid" required>
+                    <option value="">Select a Customer...</option>
+                    {% for customer in customers %}
+                    <option value="{{ customer.CUSTOMERID }}">{{ customer.CUSTOMERNAME }} (ID: {{ customer.CUSTOMERID }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <hr>
+
+            <!-- Medicine Inputs -->
+            <h4 class="mb-3">Medicine Items</h4>
+            {% for i in range(5) %}
+            <div class="row g-3 align-items-center mb-3">
+                <div class="col-md-8">
+                    <label for="medicineid_{{ i }}" class="form-label">Medicine {{ i + 1 }}</label>
+                    <select class="form-select" id="medicineid_{{ i }}" name="medicineid_{{ i }}">
+                        <option value="">Select Medicine...</option>
+                        {% for med in medicines %}
+                        <option value="{{ med.MEDICINEID }}">{{ med.MEDICINENAME }} (৳{{ "%.2f"|format(med.PRICE) }})</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="quantity_{{ i }}" class="form-label">Quantity</label>
+                    <input type="number" class="form-control" id="quantity_{{ i }}" name="quantity_{{ i }}" min="1" placeholder="Quantity">
+                </div>
+            </div>
+            {% endfor %}
+
+            <hr>
+
+            <!-- Payment Method -->
+            <div class="mb-3">
+                <label for="payment" class="form-label">Payment Method</label>
+                <select class="form-select" id="payment" name="payment" required>
+                    <option value="">Select Payment Method...</option>
+                    <option value="Cash">Cash</option>
+                    <option value="Card">Card</option>
+                    <option value="Bkash">Bkash</option>
+                    <option value="Nagad">Nagad</option>
+                    <option value="Rocket">Rocket</option>
+                </select>
+            </div>
+
+            <!-- Buttons -->
+            <button type="submit" class="btn btn-success">Create Sale</button>
+            <a href="{{ url_for('employee_sales') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

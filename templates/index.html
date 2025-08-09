@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Cure Point{% endblock %}
+
+{% block content %}
+<div class="text-center p-5 mb-4 bg-light rounded-3">
+    <h1 class="display-4">Cure Point</h1>
+    <p class="lead">Caring Beyond Drugs</p>
+</div>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-10">
+        <div class="list-group">
+            <a href="{{ url_for('search_medicine') }}" class="list-group-item list-group-item-action list-group-item-primary text-center p-3 fs-5">
+                1. Search Medicine
+            </a>
+            <a href="{{ url_for('customer_login') }}" class="list-group-item list-group-item-action list-group-item-success text-center p-3 fs-5">
+                2. Customer Section
+            </a>
+            <a href="{{ url_for('employee_login') }}" class="list-group-item list-group-item-action list-group-item-info text-center p-3 fs-5">
+                3. Employee Section
+            </a>
+            <a href="{{ url_for('admin_login') }}" class="list-group-item list-group-item-action list-group-item-warning text-center p-3 fs-5">
+                4. Admin / Branch Manager Section
+            </a>
+            <a href="{{ url_for('contact_us') }}" class="list-group-item list-group-item-action list-group-item-secondary text-center p-3 fs-5">
+                5. Contact Us
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Shopping Cart</h2>
+{% if cart_items %}
+<div class="card shadow-sm">
+    <div class="table-responsive">
+        <table class="table table-hover mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th>Medicine</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th class="text-end">Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.MEDICINENAME }}</td>
+                    <td>৳{{ "%.2f"|format(item.PRICE) }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td class="text-end">৳{{ "%.2f"|format(item.subtotal) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="table-primary">
+                    <th colspan="3" class="text-end fs-5">Total:</th>
+                    <th class="text-end fs-5">৳{{ "%.2f"|format(total_price) }}</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+<div class="card shadow-sm mt-4">
+    <div class="card-header">
+        <h4 class="mb-0">Place Order</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST" action="{{ url_for('cart_details') }}">
+            <div class="mb-3">
+                <label for="address" class="form-label">Delivery Address</label>
+                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="payment" class="form-label">Payment Method</label>
+                <select class="form-select" id="payment" name="payment" required>
+                    <option value="COD">Cash on Delivery (COD)</option>
+                    <option value="Bkash">Bkash</option>
+                    <option value="Nagad">Nagad</option>
+                    <option value="Rocket">Rocket</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Confirm and Place Order</button>
+        </form>
+    </div>
+</div>
+{% else %}
+<div class="alert alert-info">No medicine in cart. <a href="{{ url_for('search_medicine') }}">Start Shopping!</a></div>
+{% endif %}
+{% endblock %}

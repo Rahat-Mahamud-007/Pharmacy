@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}{{ medicine.MEDICINENAME }} Details{% endblock %}
+
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h3>{{ medicine.MEDICINENAME }}</h3>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Price: ৳{{ "%.2f"|format(medicine.PRICE) }} per unit</h5>
+        <p><strong>Manufacturer:</strong> {{ medicine.MANUFACTURER }}</p>
+        <p><strong>Category:</strong> {{ medicine.CATEGORYNAME or 'N/A' }}</p>
+        <p><strong>Category Details:</strong> {{ medicine.CATAGORYDETAILS or 'N/A' }}</p>
+        <hr>
+
+        <form action="{{ url_for('add_to_cart', medicine_id=medicine.MEDICINEID) }}" method="POST">
+             <div class="row align-items-center g-3">
+                <div class="col-auto">
+                    <label for="quantity" class="col-form-label">Quantity:</label>
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" style="width: 80px;">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-success">Add to Cart</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-footer">
+        <a href="{{ url_for('search_medicine') }}" class="btn btn-secondary">Back to Search</a>
+    </div>
+</div>
+{% endblock %}

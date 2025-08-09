@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Supplier{% endblock %}
+
+{% block content %}
+<h2>{{ action }} Supplier</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="suppliername" class="form-label">Supplier Name</label>
+                <input type="text" class="form-control" id="suppliername" name="suppliername" value="{{ supplier.SUPPLIERNAME if supplier else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact Number</label>
+                <input type="tel" class="form-control" id="contact" name="contact" value="{{ supplier.CONTACT if supplier else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="medicineid" class="form-label">Associated Medicine (Optional)</label>
+                <select class="form-select" id="medicineid" name="medicineid">
+                    <option value="">None</option>
+                    {% for med in medicines %}
+                    <option value="{{ med.MEDICINEID }}" {% if supplier and supplier.MEDICINEID == med.MEDICINEID %}selected{% endif %}>
+                        {{ med.MEDICINENAME }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">{{ action }} Supplier</button>
+            <a href="{{ url_for('admin_suppliers') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Shift{% endblock %}
+
+{% block content %}
+<h2>{{ action }} Shift</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="shiftid" class="form-label">Shift ID</label>
+                <input type="number" class="form-control" id="shiftid" name="shiftid" value="{{ shift.SHIFTID if shift else '' }}" required {% if action == 'Edit' %}readonly{% endif %}>
+                 {% if action == 'Add' %}<div class="form-text">Please enter a unique numeric ID for the shift.</div>{% endif %}
+            </div>
+            <div class="mb-3">
+                <label for="shiftname" class="form-label">Shift Name</label>
+                <input type="text" class="form-control" id="shiftname" name="shiftname" value="{{ shift.SHIFTNAME if shift else '' }}">
+            </div>
+            <div class="mb-3">
+                <label for="starttime" class="form-label">Start Time</label>
+                <input type="time" class="form-control" id="starttime" name="starttime" value="{{ shift.STARTTIME if shift else '' }}">
+            </div>
+            <div class="mb-3">
+                <label for="endtime" class="form-label">End Time</label>
+                <input type="time" class="form-control" id="endtime" name="endtime" value="{{ shift.ENDTIME if shift else '' }}">
+            </div>
+            <div class="mb-3">
+                <label for="employeeid" class="form-label">Assign Employee (Optional)</label>
+                <select class="form-select" id="employeeid" name="employeeid">
+                    <option value="">None</option>
+                    {% for emp in employees %}
+                    <option value="{{ emp.EMPLOYEEID }}" {% if shift and shift.EMPLOYEEID == emp.EMPLOYEEID %}selected{% endif %}>
+                        {{ emp.EMPLOYEENAME }} (ID: {{ emp.EMPLOYEEID }})
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">{{ action }} Shift</button>
+            <a href="{{ url_for('admin_shifts') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

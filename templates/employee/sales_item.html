@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Sale Details - ID: {{ sale_id }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Details for Sale ID: {{ sale_id }}</h2>
+{% if items %}
+<div class="card shadow-sm mb-4">
+    <div class="card-body">
+        <p><strong>Customer:</strong> {{ items[0].CUSTOMERNAME or 'N/A' }}</p>
+        <p><strong>Employee:</strong> {{ items[0].EMPLOYEENAME or 'N/A' }}</p>
+        <p><strong>Date:</strong> {{ items[0].SALEDATE.strftime('%Y-%m-%d') if items[0].SALEDATE else 'N/A' }}</p>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Medicine</th>
+                <th>Quantity</th>
+                <th>Price Per Unit</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>{{ item.MEDICINENAME }}</td>
+                <td>{{ item.QUANTITY }}</td>
+                <td>৳{{ "%.2f"|format(item.PRICEPERUNIT) }}</td>
+                <td>৳{{ "%.2f"|format(item.TOTALAMOUNT) }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="alert alert-warning">No items found for this sale.</div>
+{% endif %}
+<a href="{{ url_for('employee_sales') }}" class="btn btn-secondary mt-3">Back to Sales List</a>
+{% endblock %}

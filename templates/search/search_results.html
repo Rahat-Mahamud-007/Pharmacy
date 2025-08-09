@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Search results for "{{ query }}"</h2>
+
+{% if medicines %}
+<div class="list-group">
+    {% for med in medicines %}
+    <a href="{{ url_for('medicine_details', medicine_id=med.MEDICINEID) }}" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{ med.MEDICINENAME }}</h5>
+            <small class="text-muted">Price: ৳{{ "%.2f"|format(med.PRICE) }}</small>
+        </div>
+        <p class="mb-1">Manufacturer: {{ med.MANUFACTURER }}</p>
+        <small class="text-muted">Category: {{ med.CATEGORYNAME or 'N/A' }}</small>
+    </a>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-warning" role="alert">
+    No medicines found matching your search.
+</div>
+{% endif %}
+<a href="{{ url_for('search_medicine') }}" class="btn btn-secondary mt-3">New Search</a>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Customer Dashboard</h2>
+<p>Welcome, {{ session.user_name }}!</p>
+<div class="list-group">
+    <a href="{{ url_for('search_medicine') }}" class="list-group-item list-group-item-action">
+        Search Medicine
+    </a>
+    <a href="{{ url_for('cart_details') }}" class="list-group-item list-group-item-action">
+        Cart Details
+    </a>
+    <a href="{{ url_for('previous_orders') }}" class="list-group-item list-group-item-action">
+        Previous Order Details
+    </a>
+</div>
+{% endblock %}

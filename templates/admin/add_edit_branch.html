@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Branch{% endblock %}
+
+{% block content %}
+<h2>{{ action }} Branch</h2>
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="branchname" class="form-label">Branch Name</label>
+                <input type="text" class="form-control" id="branchname" name="branchname" value="{{ branch.BRANCHNAME if branch else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="location" class="form-label">Location</label>
+                <input type="text" class="form-control" id="location" name="location" value="{{ branch.LOCATION if branch else '' }}" required>
+            </div>
+            <div class="mb-3">
+                <label for="managernumber" class="form-label">Manager Contact Number</label>
+                <input type="tel" class="form-control" id="managernumber" name="managernumber" value="{{ branch.BRANCHMANAGERNUBMBER if branch else '' }}" required>
+            </div>
+            <button type="submit" class="btn btn-success">{{ action }} Branch</button>
+            <a href="{{ url_for('admin_branches') }}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Shifts{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Shifts</h2>
+    <a href="{{ url_for('admin_add_shift') }}" class="btn btn-primary">Add New Shift</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Shift ID</th>
+                <th>Shift Name</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Assigned Employee</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for shift in shifts %}
+            <tr>
+                <td>{{ shift.SHIFTID }}</td>
+                <td>{{ shift.SHIFTNAME }}</td>
+                <td>{{ shift.STARTTIME }}</td>
+                <td>{{ shift.ENDTIME }}</td>
+                <td>{{ shift.EMPLOYEENAME or 'N/A' }}</td>
+                <td>
+                    <a href="{{ url_for('admin_edit_shift', shift_id=shift.SHIFTID) }}" class="btn btn-sm btn-warning">Edit</a>
+                    <form action="{{ url_for('admin_delete_shift', shift_id=shift.SHIFTID) }}" method="POST" class="d-inline">
+                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center">No shifts found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

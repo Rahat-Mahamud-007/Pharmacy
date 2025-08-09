@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Sales{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Sales Records</h2>
+    <a href="{{ url_for('employee_add_sale') }}" class="btn btn-success">Add Sale</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th>Sale ID</th>
+                <th>Date</th>
+                <th>Customer ID</th>
+                <th>Payment Method</th>
+                <th>Grand Total</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in sales %}
+            <tr>
+                <td>{{ sale.SALEID }}</td>
+                <td>{{ sale.SALEDATE.strftime('%Y-%m-%d') if sale.SALEDATE else 'N/A' }}</td>
+                <td>{{ sale.CUSTOMERID or 'N/A' }}</td>
+                <td>{{ sale.PAYMENTMETHOD or 'N/A' }}</td>
+                <td>৳{{ "%.2f"|format(sale.GrandTotal) }}</td>
+                <td>
+                    <a href="{{ url_for('employee_sales_item', sale_id=sale.SALEID) }}" class="btn btn-sm btn-info">View Items</a>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6" class="text-center">No sales records found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

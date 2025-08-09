@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block title %}Employee Sign Up{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <h3>Create Employee Account</h3>
+            </div>
+            <div class="card-body">
+                {% if new_employee_id %}
+                <div class="alert alert-success" role="alert">
+                    Account created successfully! Your <strong>Employee ID</strong> is: <strong>{{ new_employee_id }}</strong>. Please save this ID for future logins.
+                    <a href="{{ url_for('employee_login') }}" class="alert-link d-block mt-2">Go to Login</a>
+                </div>
+                {% endif %}
+
+                <form method="POST" action="{{ url_for('employee_signup') }}">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="name" name="employee_name" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Phone Number</label>
+                        <input type="tel" class="form-control" id="contact" name="contact" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="pin" class="form-label">PIN Number</label>
+                        <input type="password" class="form-control" id="pin" name="pin" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="designation" class="form-label">Designation</label>
+                        <input type="text" class="form-control" id="designation" name="designation" value="Staff" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="branch_id" class="form-label">Branch</label>
+                        <select class="form-select" id="branch_id" name="branch_id" required>
+                            <option selected disabled value="">Select...</option>
+                            {% for branch in branches %}
+                            <option value="{{ branch.BRANCHID }}">{{ branch.BRANCHNAME }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-info w-100">Create Account</button>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                Already have an account? <a href="{{ url_for('employee_login') }}">Login here.</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

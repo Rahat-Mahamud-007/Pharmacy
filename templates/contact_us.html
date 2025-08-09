@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us - Cure Point{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4 text-center">Our Branches</h2>
+    <div class="row">
+        {% if branches %}
+            {% for branch in branches %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">{{ branch.BRANCHNAME }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><strong>Address:</strong> {{ branch.LOCATION }}</p>
+                        <p class="card-text"><strong>Manager Contact:</strong> {{ branch.BRANCHMANAGERNUBMBER }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="col">
+                <p class="text-center alert alert-warning">No branch information is available at the moment.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
